@@ -163,6 +163,7 @@ public class TicTacToeGame {
 			  board[(int)(move/3)][move%3] = turn;
 
 		 }
+		//printing board after every move by deciding the box by given calculations
 		 board[(int)(move/3)][move%3] = turn;
 		 print_board(board, userChoice, computerChoice);
 		 win = checkWinner(board);
