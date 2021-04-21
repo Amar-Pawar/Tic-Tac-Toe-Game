@@ -123,7 +123,7 @@ public class TicTacToeGame {
 		 }
 		 board[(int)(move/3)][move%3] = turn;
 
-		//printing board after move
+		//printing board after move and shows the free spaces
 		 print_board(board, userChoice, computerChoice);
 
 		 if (turn == USER) {
