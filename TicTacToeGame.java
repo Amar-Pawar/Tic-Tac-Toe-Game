@@ -58,7 +58,6 @@ public class TicTacToeGame {
 		 
 		 return userChoice;
 	 }
-	 
 	//methode to decide computer move using random
 	 public static int computerMove(int[][] board) {
 		 int move = (int)(Math.random()*9);
