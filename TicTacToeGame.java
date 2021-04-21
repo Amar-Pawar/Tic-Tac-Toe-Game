@@ -195,5 +195,21 @@ public class TicTacToeGame {
 		 default:
 			 break;
 		 }
+
+		//to play again after first game result
+
+		System.out.println("Do you want to play again? \nEnter 1 for YES & 2 for NO");
+		Scanner sc = new Scanner(System.in);
+		int playAgainStatus = sc.nextInt();
+		
+		switch(playAgainStatus) {
+		case 1: 
+			main(null);
+		case 2:
+			System.out.println("Thank you for playing!!!");
+			break;
+		default:
+			break;
+		}
 }
 }
