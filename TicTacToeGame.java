@@ -5,7 +5,6 @@ public class TicTacToeGame {
 	private static final int COMPUTER=2;
 	private static final int EMPTY=0;
 	private static int stalemate=0;
-	//private static int none = 0;
 	
 	//method to create board
 	 public static void print_board(int[][] board, String userChoice, String computerChoice) {
