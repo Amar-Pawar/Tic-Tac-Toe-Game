@@ -1,10 +1,11 @@
+import java.util.Scanner;
 public class TicTacToeGame {
 	//constants
 	private static final int USER=1;
 	private static final int COMPUTER=2;
 	private static final int EMPTY=0;
 
-	//method to print the borad by creating multi dimentional 2D array
+	//creating a method to print print board
 	public static void print_board(int[][] board) {
 	        System.out.print(printChar(board[0][0]));
 	        System.out.print("|");
@@ -24,7 +25,7 @@ public class TicTacToeGame {
 	        System.out.print("|");
 	        System.out.println(printChar(board[2][2]));
 	        }
-	 
+	 //method to return empty or x or o accordin to player
 	 public static char printChar(int b) {
 	       
 	        switch(b) {
@@ -37,13 +38,47 @@ public class TicTacToeGame {
 	        }
 	        return ' ';
 	    } 
-	public static void main(String[] args){
-		System.out.println("Welcome to Tic Tac Toe Game");
 
+	//method  to giver user a choice to select X or O
+	 public static String moveChoice() {
+		 String computerChoice;
+		 String userChoice;
+		 System.out.println("Choose 1. for X and 2. for O");
+		 Scanner sc = new Scanner(System.in);
+		 int userChoiceNumber = sc.nextInt();
+		 if (userChoiceNumber == 1) {
+			  userChoice = "X";
+		 }	 
+			 else
+			 	userChoice = "O";	
+		 
+		 System.out.println("You have chose: " + userChoice);
+		 
+		 
+		 return userChoice;
+	 }
+	 
+	public static void main(String[] args) {
+
+		System.out.println("Welcome to Tic Tac Toe Game");
 		int turn;
-		//creating  multidimentional array
+		String computerChoice;
+		//creating multidimentional array
 		int[][] board = new int[3][3];
-		//calling method to print the board
+		//calling a method to print board
 		print_board(board);
+
+		//calling method to select user choice
+		String userChoice = moveChoice();
+		if (userChoice == "X") {
+			  computerChoice = "O";
+			  turn = COMPUTER;
+		 }	 
+			 else {
+			 	computerChoice = "X";
+				turn = USER;
+		}
+		 System.out.println("You have chose: " + userChoice + " so computer gets: " + computerChoice);
 	}
+	
 }
