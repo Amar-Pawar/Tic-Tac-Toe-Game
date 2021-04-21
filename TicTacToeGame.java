@@ -5,41 +5,42 @@ public class TicTacToeGame {
 	private static final int COMPUTER=2;
 	private static final int EMPTY=0;
 
-	//creating a method to print print board
-	public static void print_board(int[][] board) {
-	        System.out.print(printChar(board[0][0]));
+	//method to print board and passing parameters for player and computer moves
+	 public static void print_board(int[][] board, String userChoice, String computerChoice) {
+	        System.out.print(printChar(board[0][0], userChoice, computerChoice));
 	        System.out.print("|");
-	        System.out.print(printChar(board[0][1]));
+	        System.out.print(printChar(board[0][1], userChoice, computerChoice));
 	        System.out.print("|");
-	        System.out.println(printChar(board[0][2]));
+	        System.out.println(printChar(board[0][2], userChoice, computerChoice));
 	        System.out.println("-----");
-	        System.out.print(printChar(board[1][0]));
+	        System.out.print(printChar(board[1][0], userChoice, computerChoice));
 	        System.out.print("|");
-	        System.out.print(printChar(board[1][1]));
+	        System.out.print(printChar(board[1][1], userChoice, computerChoice));
 	        System.out.print("|");
-	        System.out.println(printChar(board[1][2]));
+	        System.out.println(printChar(board[1][2], userChoice, computerChoice));
 	        System.out.println("-----");
-	        System.out.print(printChar(board[2][0]));
+	        System.out.print(printChar(board[2][0], userChoice, computerChoice));
 	        System.out.print("|");
-	        System.out.print(printChar(board[2][1]));
+	        System.out.print(printChar(board[2][1], userChoice, computerChoice));
 	        System.out.print("|");
-	        System.out.println(printChar(board[2][2]));
+	        System.out.println(printChar(board[2][2], userChoice, computerChoice));
 	        }
-	 //method to return empty or x or o accordin to player
-	 public static char printChar(int b) {
-	       
+
+
+	 public static String printChar(int b, String charChoice, String computerChoice) {
+
 	        switch(b) {
 	        case EMPTY:
-	            return ' ';
+	            return " ";
 	        case USER:
-	            return 'X';
+	            return charChoice;
 	        case COMPUTER:
-	            return 'O';
+	            return computerChoice;
 	        }
-	        return ' ';
+	        return  " ";
 	    } 
 
-	//method  to giver user a choice to select X or O
+	//method for player to select X or O
 	 public static String moveChoice() {
 		 String computerChoice;
 		 String userChoice;
@@ -48,40 +49,52 @@ public class TicTacToeGame {
 		 int userChoiceNumber = sc.nextInt();
 		 if (userChoiceNumber == 1) {
 			  userChoice = "X";
-		 }	 
+		 }
 			 else
-			 	userChoice = "O";	
-		 
+			 	userChoice = "O";
+
 		 System.out.println("You have chose: " + userChoice);
-		 
-		 
+
 		 return userChoice;
 	 }
-		//method for creating a random  move value for computer using random 
-		 public static int computerMove() {
+
+	//method to get computers move by random
+	 public static int computerMove(int[][] board) {
 		 int move = (int)(Math.random()*9);
+
+		//using while loop  to insure its index free
+
+		 while(board[move/3][move%3] != EMPTY) {
+			 move = (int)(Math.random()*9);
+		 }
+		 int displayMove = move + 1;
+		 System.out.println("Computer Move : "+ displayMove);
 		 return move;
 	 }
 
-	//method for taking user input for player move
+	//method to get user move
 	 public static int userMove() {
+		 System.out.println("Please enter your move between 1 to 9");
+		//taking user input for user move
 		 Scanner ac = new Scanner(System.in);
 		 int move = ac.nextInt();
 		 return move;
 	 }
-	 
+
+
 	public static void main(String[] args) {
 
-		System.out.println("Welcome to Tic Tac Toe Game");
+		//declaring constants
 		int turn;
 		int move;
+		String choice = " ";
 		String computerChoice;
-		//creating multidimentional array
-		int[][] board = new int[3][3];
-		//calling a method to print board
-		print_board(board);
 
-		//calling method to select user choice
+		//creating multidimentional aray
+		int[][] board = new int[3][3];
+		String empty = " ";
+		String emptyUser = " ";
+		print_board(board, empty, emptyUser);
 		String userChoice = moveChoice();
 		if (userChoice == "X") {
 			  computerChoice = "O";
@@ -92,15 +105,33 @@ public class TicTacToeGame {
 				turn = USER;
 		}
 		 System.out.println("You have chose: " + userChoice + " so computer gets: " + computerChoice);
-		//using if else and calling move methods check for available cells
+		 System.out.println(USER+" "+ COMPUTER);
+		 while(true) {
 		 if (turn == USER) {
-			 move = userMove();
-			print_board(board);
+			 move = -1;
+			 while (move<0 || move>8 || board[move/3][move%3] != EMPTY) {
+				 move = userMove();
+				 move = move-1;
+
+			 }
 		 }
 		 else
-			  move = computerMove();
-		 	print_board(board);
+		 {
+			  move = computerMove(board);
+			  board[(int)(move/3)][move%3] = turn;
+
 		 }
-	
-	
+		 board[(int)(move/3)][move%3] = turn;
+
+		//printing board after move
+		 print_board(board, userChoice, computerChoice);
+
+		 if (turn == USER) {
+			 turn = COMPUTER;
+		 }
+		 else {
+			 turn = USER;
+		 }
+		 }
+		}
 }
